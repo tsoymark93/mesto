@@ -1,0 +1,11 @@
+.gallery__btn_active {
+    cursor: pointer;
+    width: 22px;
+    height: 19px;
+    background-color: transparent;
+    background-image: url(../../../../images/unLike.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: none;
+}
