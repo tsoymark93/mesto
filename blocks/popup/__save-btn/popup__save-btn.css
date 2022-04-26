@@ -8,12 +8,12 @@
     line-height: 17px;
     color: #fff;
     border: none;
-    margin: 15px 0 25px 0;
+    margin: 18px 0 25px 0;
     padding: 14px;
 }
 
 .popup__save-btn:hover {
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 @media screen and (min-width: 640px) {

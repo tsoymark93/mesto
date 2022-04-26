@@ -18,11 +18,13 @@
 @import url(../blocks/gallery/gallery.css);
 @import url(../blocks/gallery/__list/gallery__list.css);
 @import url(../blocks/gallery/__items/gallery__items.css);
-@import url(../blocks/gallery/__image/gallery__image.css);
-@import url(../blocks/gallery/__description/gallery__description.css);
-@import url(../blocks/gallery/__name/gallery__name.css);
-@import url(../blocks/gallery/__btn/gallery__btn.css);
-@import url(../blocks/gallery/__btn/_active/gallery__btn_active.css);
+
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__image/card__image.css);
+@import url(../blocks/card/__description/card__description.css);
+@import url(../blocks/card/__name/card__name.css);
+@import url(../blocks/card/__btn/card__btn.css);
+@import url(../blocks/card/__btn/_active/card__btn_active.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
