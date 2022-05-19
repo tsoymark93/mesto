@@ -8,6 +8,7 @@
     background-image: url(../../../images/Close.svg);
     background-color: transparent;
     border: none;
+    transition: opacity 0.2s linear;
 }
 
 .popup__close-btn:hover {

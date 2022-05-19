@@ -28,80 +28,88 @@
         </section>
 
         <section class="gallery">
-            <ul class="gallery__list">
-                <li class="gallery__items card">
-                    <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-                    <div class="card__description">
-                        <h2 class="card__name">Карачаево-Черкесия</h2>
-                        <button class="card__btn" type="button" aria-label="Нравится"></button>
-                    </div>
-                </li>
-                <li class="gallery__items card">
-                    <img class="card__image" src="./images/elbrus.jpg" alt="Эльбрус">
-                    <div class="card__description">
-                        <h2 class="card__name">Гора Эльбрус</h2>
-                        <button class="card__btn" type="button" aria-label="Нравится"></button>
-                    </div>
-                </li>  
-                <li class="gallery__items card">
-                    <img class="card__image" src="./images/dombai.jpg" alt="Домбай">
-                    <div class="card__description">
-                        <h2 class="card__name">Домбай</h2>
-                        <button class="card__btn" type="button" aria-label="Нравится"></button>
-                    </div>
-                </li>  
-                <li class="gallery__items card">
-                    <img class="card__image" src="./images/baikal.jpg" alt="Байкал">
-                    <div class="card__description">
-                        <h2 class="card__name">Байкал</h2>
-                        <button class="card__btn" type="button" aria-label="Нравится"></button>
-                    </div>
-                </li>  
-                <li class="gallery__items card">
-                    <img class="card__image" src="./images/kirgiziya.jpg" alt="Киргизия">
-                    <div class="card__description">
-                        <h2 class="card__name">Киргизия</h2>
-                        <button class="card__btn" type="button" aria-label="Нравится"></button>
-                    </div>
-                </li>  
-                <li class="gallery__items card">
-                    <img class="card__image" src="./images/altai.jpg" alt="Алтай">
-                    <div class="card__description">
-                        <h2 class="card__name">Алтай</h2>
-                        <button class="card__btn" type="button" aria-label="Нравится"></button>
-                    </div>
-                </li>  
-            </ul>
+            
         </section>
 
-        <div class="popup">
-            <div class="popup__container">
-                <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
-                <h3 class="popup__title">Редактировать профиль</h3>
-                <form name="popup-form" action="form" class="popup__form">
-                    <input 
-                    type="text"
-                    id="profile-name"
-                    placeholder="Имя"
-                    name="name"
-                    class="popup__input" 
-                    />
-                    <input
-                    type="text"
-                    id="profile-profession"
-                    placeholder="Профессия"
-                    name="profession"
-                    class="popup__input"
-                    />
-                    <button type="submit" class="popup__save-btn" aria-label="Сохранить">Сохранить</button>
-                </form>
-            </div>
-        </div>
     </main>
 
     <footer class="footer">
         <p class="footer__copyright">©&nbsp;2022 Mesto Russia</p>
     </footer>
+
+    <div class="popup popup_type_edit">
+        <div class="popup__container">
+            <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
+            <h3 class="popup__title">Редактировать профиль</h3>
+            <form name="popup__edit-form" action="form" class="popup__edit-form">
+                <input 
+                type="text"
+                id="profile-name"
+                placeholder="Имя"
+                name="name"
+                class="popup__input popup__input_name" 
+                required
+                />
+                <input
+                type="text"
+                id="profile-profession"
+                placeholder="Профессия"
+                name="profession"
+                class="popup__input popup__input_profession"
+                required
+                />
+                <button type="submit" class="popup__save-btn" aria-label="Сохранить">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_add">
+        <div class="popup__container">
+            <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
+            <h3 class="popup__title">Новое место</h3>
+            <form name="popup__add-form" action="form" class="popup__add-form">
+                <input 
+                type="text"
+                id="gallery-name"
+                placeholder="Название"
+                name="description"
+                class="popup__input popup__input_gallery"
+                required
+                />
+                <input
+                type="link"
+                id="gallery-link"
+                placeholder="Ссылка на картинку"
+                name="link"
+                class="popup__input popup__input_link"
+                required
+                />
+                <button type="submit" class="popup__save-btn" aria-label="Создать">Создать</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_img">
+        <figure class="popup__figure">
+            <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
+            <img class="popup__image" src="#" alt="#">
+            <figcaption class="popup__description"></figcaption>
+        </figure>
+    </div>
+
+    <template id="gallery-template">
+            <ul class="gallery__list">
+                <li class="gallery__items card">
+                    <img class="card__image" src="#" alt="#">
+                    <button class="card__trash" type="button" aria-label="Удалить"></button>
+                    <div class="card__description">
+                        <h2 class="card__name"></h2>
+                        <button class="card__like" type="button" aria-label="Нравится"></button>
+                    </div>
+                </li>
+            </ul>
+    </template>
+
     <script src="./scripts/index.js"></script>
 </body>
 </html>

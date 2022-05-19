@@ -1,4 +1,4 @@
-.card__btn {
+.card__like {
     cursor: pointer;
     width: 22px;
     height: 19px;
@@ -8,8 +8,10 @@
     background-position: center;
     background-size: cover;
     border: none;
+    transition: 0.3s;
 }
 
-.card__btn:hover {
+.card__like:hover {
     opacity: 0.5;
+    transform: scale(1.3);
 }

@@ -11,6 +11,7 @@
     background-position: center;
     background-size: 16px 16px;
     padding: 0;
+    transition: 0.3s;
 }
 
 .profile__add-btn:hover {
