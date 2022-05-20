@@ -2,6 +2,7 @@
     background-color: #fff;
     border-radius: 10px;
     list-style: none;
-    max-height: 361px;
+    width: 282px;
+    height: 361px;
     position: relative;
 }
