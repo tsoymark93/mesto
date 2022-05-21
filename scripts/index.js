@@ -58,8 +58,14 @@ const openPopup = (popup) => {
 };
 // Функция закрытия попапов 
 const closePopup = (popup) => {
-    popup.classList.remove('popup_opened')
+    popup.classList.remove('popup_opened');
 };
+//Функция закрытия по оверлей
+const onPopupClickClose = (event) => {
+  const popup = event.target.closest('.popup_opened');
+  if (event.target == popup) {
+    closePopup(popup)};
+  }
 
 //Функции связанные с попапом редактирования
 const clickPopupEditOpen = () => {
@@ -77,21 +83,6 @@ const editSubmit = (evt) => {
   closePopup(popupEdit);
   };
 
-const popup = document.querySelector('.popup__opened');
-const onPopupClickClose = (event) => {
-  if (event.target == event.currentTarget) {
-    closePopup(popup)
-  }
-};
-
-// Закрытие попапа по свободной области экрана 
-// popupEdit.addEventListener('click', function( event ){
-//   if (event.target == event.currentTarget) {
-//   closePopup(popupEdit); 
-//   } 
-// });   
-
-
 //Функции связанные с попапом добавления
 const clickPopupAddOpen = () => {
   openPopup(popupAdd);
@@ -108,13 +99,6 @@ const addSubmit = (evt) => {
   popupAddForm.reset();
   closePopup(popupAdd);
 }
-
-// Закрытие попапа по свободной области экрана 
-// popupAdd.addEventListener('click', function( event ){
-//  if (event.target == event.currentTarget) {
-//   closePopup(popupAdd);   
-//  } 
-// });
 
 //Функции связанные с массивом
 const initialFs = (name, link) => {
@@ -145,7 +129,8 @@ const createCards = (name, link) => {
   const card = galleryTemplate.querySelector('.gallery__list').cloneNode(true);
   const cardImage = card.querySelector('.card__image');
   const cardLike = card.querySelector('.card__like');
-  card.querySelector('.card__name').textContent = name;
+  const cardDesscription = card.querySelector('.card__description')
+  cardDesscription.querySelector('.card__name').textContent = name;
   const cardName = card.querySelector('.card__name');
   cardName.textContent = name;
   cardImage.src = link;
@@ -164,24 +149,20 @@ const renderCard = (gallerySection, card, prepend) => {
   }
 };
 
-// Закрытие попапа по свободной области экрана 
-// popupFs.addEventListener('click', function( event ){
-//   if (event.target == event.currentTarget) {
-//   closePopup(popupFs); 
-//   } 
-// });  
       //Слушатели нажатия на клик
 //Слушатели попапа редактирования
 popupEditOpen.addEventListener('click', clickPopupEditOpen);
 popupEditClose.addEventListener('click', clickPopupEditClose);
 popupEditForm.addEventListener('submit', editSubmit);
+popupEdit.addEventListener('click', onPopupClickClose);
 //Слушатели попапа добавления
 popupAddOpen.addEventListener('click', clickPopupAddOpen);
 popupAddClose.addEventListener('click', clickPopupAddClose);
 popupAddForm.addEventListener('submit', addSubmit);
+popupAdd.addEventListener('click', onPopupClickClose);
 //Слушатели блока массива 
 popupFsClose.addEventListener('click', () => closePopup(popupFs));
-
+popupFs.addEventListener('click', onPopupClickClose);
       //Добавить массив
 initialCards.forEach((icon) => {
   const name = icon.name;
@@ -189,6 +170,3 @@ initialCards.forEach((icon) => {
   const card = createCards (name, link);
   renderCard(gallerySection, card, false);
 });
-
-//Я не нашел решение по поводу замечания с закрытием попапов по клику на пустом пространстве. Так как внутри тела обработчика мы обращаемся к конкретному попапу,
-//как сделать так чтобы функция получилась универсальной, я увы не знаю, может быть в 6 спринте будет ответ)) Направьте меня пожалуйста по возможности. 
