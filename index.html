@@ -41,7 +41,7 @@
         <div class="popup__container">
             <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
-            <form name="popup__edit-form" action="form" class="popup__edit-form">
+            <form name="popup__edit-form" action="form" class="popup__edit-form" novalidate>
                 <input 
                 type="text"
                 id="profile-name"
@@ -49,7 +49,10 @@
                 name="name"
                 class="popup__input popup__input_name" 
                 required
+                minlength="2"
+                maxlength="40"
                 />
+                <span class="popup__input-error profile-name-error"></span>
                 <input
                 type="text"
                 id="profile-profession"
@@ -57,8 +60,11 @@
                 name="profession"
                 class="popup__input popup__input_profession"
                 required
+                minlength="2"
+                maxlength="200"
                 />
-                <button type="submit" class="popup__save-btn" aria-label="Сохранить">Сохранить</button>
+                <span class="popup__input-error profile-profession-error"></span>
+                <button type="submit" class="popup__save-btn" aria-label="Сохранить" disabled>Сохранить</button>
             </form>
         </div>
     </div>
@@ -67,7 +73,7 @@
         <div class="popup__container">
             <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
             <h3 class="popup__title">Новое место</h3>
-            <form name="popup__add-form" action="form" class="popup__add-form">
+            <form name="popup__add-form" action="form" class="popup__add-form" novalidate>
                 <input 
                 type="text"
                 id="gallery-name"
@@ -75,16 +81,20 @@
                 name="description"
                 class="popup__input popup__input_gallery"
                 required
+                minlength="2"
+                maxlength="30"
                 />
+                <span class="popup__input-error gallery-name-error"></span>
                 <input
-                type="link"
+                type="url"
                 id="gallery-link"
                 placeholder="Ссылка на картинку"
                 name="link"
                 class="popup__input popup__input_link"
                 required
                 />
-                <button type="submit" class="popup__save-btn" aria-label="Создать">Создать</button>
+                <span class="popup__input-error gallery-link-error"></span>
+                <button type="submit" class="popup__save-btn" aria-label="Создать" disabled>Создать</button>
             </form>
         </div>
     </div>
@@ -109,7 +119,8 @@
                 </li>
             </ul>
     </template>
-
+    <script src="./scripts/initial-cards.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
 </body>
 </html>

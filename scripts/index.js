@@ -6,7 +6,7 @@ const popupEditClose = popupEdit.querySelector('.popup__close-btn');
 const popupEditForm = popupEdit.querySelector('.popup__edit-form');
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
-const inpuEditName = popupEdit.querySelector('#profile-name');
+const inputEditName = popupEdit.querySelector('#profile-name');
 const inputEditProfession = popupEdit.querySelector('#profile-profession');
 // Константы связанные с Popup Add
 const popupAdd = document.querySelector('.popup_type_add');
@@ -18,32 +18,7 @@ const inputAddName = popupAdd.querySelector('#gallery-name');
 const inputAddLink = popupAdd.querySelector('#gallery-link');
 const galleryTemplate = document.querySelector('#gallery-template').content;
 const gallerySection = document.querySelector('.gallery');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+
 // Константы связанные с Popup FullScreen
 const popupFs = document.querySelector('.popup_type_img');
 const popupFsImage = popupFs.querySelector('.popup__image');
@@ -55,10 +30,14 @@ const popupFsClose = popupFs.querySelector('.popup__close-btn');
 // Функция открытия Попапов
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
+  document.addEventListener('keydown', onPopupEscClose);
+  document.addEventListener('mousedown', onPopupClickClose);
 };
 // Функция закрытия попапов 
 const closePopup = (popup) => {
-    popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', onPopupEscClose);
+  document.removeEventListener('mousedown', onPopupClickClose);
 };
 //Функция закрытия по оверлей
 const onPopupClickClose = (event) => {
@@ -66,19 +45,28 @@ const onPopupClickClose = (event) => {
   if (event.target == popup) {
     closePopup(popup)};
   }
+//Функция закрытия по ESC
+const onPopupEscClose =  (evt) => {
+  const popup = document.querySelector('.popup_opened')
+  if (evt.key == 'Escape') {
+    closePopup(popup)
+  }
+};
 
 //Функции связанные с попапом редактирования
 const clickPopupEditOpen = () => {
-  inpuEditName.value  =  profileName.textContent;
+  inputEditName.value  =  profileName.textContent;
   inputEditProfession.value  =  profileProfession.textContent;
   openPopup(popupEdit)
+  inputEditName.dispatchEvent(new Event('input'));
+  inputEditProfession.dispatchEvent(new Event('input'));
 };
 const clickPopupEditClose = () => {
   closePopup(popupEdit);
 };
 const editSubmit = (evt) => {
   evt.preventDefault();                                              
-  profileName.textContent = inpuEditName.value;
+  profileName.textContent = inputEditName.value;
   profileProfession.textContent = inputEditProfession.value;
   closePopup(popupEdit);
   };
@@ -154,15 +142,12 @@ const renderCard = (gallerySection, card, prepend) => {
 popupEditOpen.addEventListener('click', clickPopupEditOpen);
 popupEditClose.addEventListener('click', clickPopupEditClose);
 popupEditForm.addEventListener('submit', editSubmit);
-popupEdit.addEventListener('click', onPopupClickClose);
 //Слушатели попапа добавления
 popupAddOpen.addEventListener('click', clickPopupAddOpen);
 popupAddClose.addEventListener('click', clickPopupAddClose);
 popupAddForm.addEventListener('submit', addSubmit);
-popupAdd.addEventListener('click', onPopupClickClose);
 //Слушатели блока массива 
 popupFsClose.addEventListener('click', () => closePopup(popupFs));
-popupFs.addEventListener('click', onPopupClickClose);
       //Добавить массив
 initialCards.forEach((icon) => {
   const name = icon.name;
@@ -170,5 +155,3 @@ initialCards.forEach((icon) => {
   const card = createCards (name, link);
   renderCard(gallerySection, card, false);
 });
-
-//Возник вопрос, по поводу битой ссылки при добавлении карточки. Я смог решить это добавлением конкретных значени min-height: 282px и max-height: 282px блоку .card__image, но разве заданная высота height: 282px это не то же самое?) и почему игнорировалось конкретное значение height изначально?) Спасибо большое, ваш ревью самый лучший за все ПР) Я с помощью ваших ревью понял больше, чем при прохождении теории!) 
