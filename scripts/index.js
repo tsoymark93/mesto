@@ -13,6 +13,8 @@ const popupAdd = document.querySelector('.popup_type_add');
 const popupAddOpen = document.querySelector('.profile__add-btn');
 const popupAddClose = popupAdd.querySelector('.popup__close-btn');
 const popupAddForm = popupAdd.querySelector('.popup__add-form');
+const inputAddNameError = popupAdd.querySelector('.gallery-name-error')
+const inputAddLinkError = popupAdd.querySelector('.gallery-link-error') 
 // Константы связанные с Gallery массивом
 const inputAddName = popupAdd.querySelector('#gallery-name');
 const inputAddLink = popupAdd.querySelector('#gallery-link');
@@ -30,23 +32,23 @@ const popupFsClose = popupFs.querySelector('.popup__close-btn');
 // Функция открытия Попапов
 const openPopup = (popup) => {
   popup.classList.add('popup_opened')
-  document.addEventListener('keydown', onPopupEscClose);
-  document.addEventListener('mousedown', onPopupClickClose);
+  document.addEventListener('keydown', closeByEsc);
+  document.addEventListener('mousedown', closeByOverlayClick);
 };
 // Функция закрытия попапов 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', onPopupEscClose);
-  document.removeEventListener('mousedown', onPopupClickClose);
+  document.removeEventListener('keydown', closeByEsc);
+  document.removeEventListener('mousedown', closeByOverlayClick);
 };
 //Функция закрытия по оверлей
-const onPopupClickClose = (event) => {
+const closeByOverlayClick = (event) => {
   const popup = event.target.closest('.popup_opened');
   if (event.target == popup) {
     closePopup(popup)};
   }
 //Функция закрытия по ESC
-const onPopupEscClose =  (evt) => {
+const closeByEsc =  (evt) => {
   const popup = document.querySelector('.popup_opened')
   if (evt.key == 'Escape') {
     closePopup(popup)
@@ -72,8 +74,18 @@ const editSubmit = (evt) => {
   };
 
 //Функции связанные с попапом добавления
+const resetAddCard = () => {
+  popupAddForm.reset();
+  inputAddLink.dispatchEvent(new Event('input'));
+  inputAddName.dispatchEvent(new Event('input'));
+  inputAddName.classList.remove('popup__input_type_error');
+  inputAddLink.classList.remove('popup__input_type_error');
+  inputAddNameError.textContent = '';
+  inputAddLinkError.textContent = '';
+}
 const clickPopupAddOpen = () => {
   openPopup(popupAdd);
+  resetAddCard();
 };
 const clickPopupAddClose = () => {
   closePopup(popupAdd);
