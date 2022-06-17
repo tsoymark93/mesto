@@ -1,4 +1,4 @@
-import { openPopup } from "./index.js";
+import { openPopup, popupImage, popupDescription } from "./index.js";
 export default class Card {
     constructor(data, cardSelector) {
         this._name = data.name;
@@ -18,9 +18,6 @@ export default class Card {
     }
     
     _openPopupFs() {
-        const popupImage = this._popupFs.querySelector('.popup__image');
-        const popupDescription = this._popupFs.querySelector('.popup__description');
-
         popupImage.src = this._link;
         popupImage.alt = this._name;
         popupDescription.textContent = this._name;
@@ -33,6 +30,7 @@ export default class Card {
 
     _deleteImg(evt) {
         this._galleryElement.remove();
+        this._galleryElement = null;
     }
 
     _setEventListeners() {
@@ -45,12 +43,12 @@ export default class Card {
         this._galleryElement = this._getTemplate()
         this._setEventListeners()
 
-        const cardImage = this._galleryElement.querySelector('.card__image');
-        const cardName = this._galleryElement.querySelector('.card__name');
+        this._cardImage = this._galleryElement.querySelector('.card__image');
+        this._cardName = this._galleryElement.querySelector('.card__name');
 
-        cardImage.src = this._link
-        cardImage.alt = this._name
-        cardName.textContent = this._name
+        this._cardImage.src = this._link
+        this._cardImage.alt = this._name
+        this._cardName.textContent = this._name
 
         return this._galleryElement
     }

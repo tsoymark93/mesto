@@ -18,6 +18,8 @@ const popupAddClose = popupAdd.querySelector('.popup__close-btn');
 const popupAddForm = popupAdd.querySelector('.popup__add-form');
 const inputAddNameError = popupAdd.querySelector('.gallery-name-error')
 const inputAddLinkError = popupAdd.querySelector('.gallery-link-error') 
+const popupImage = document.querySelector('.popup__image');
+const popupDescription = document.querySelector('.popup__description');
 // Константы связанные с Gallery массивом
 const inputAddName = popupAdd.querySelector('#gallery-name');
 const inputAddLink = popupAdd.querySelector('#gallery-link');
@@ -48,8 +50,8 @@ const closeByOverlayClick = (event) => {
   }
 //Функция закрытия по ESC
 const closeByEsc =  (evt) => {
-  const popup = document.querySelector('.popup_opened')
   if (evt.key == 'Escape') {
+    const popup = document.querySelector('.popup_opened')
     closePopup(popup)
   }
 };
@@ -92,6 +94,8 @@ const clickPopupAddClose = () => {
 const addSubmit = (evt) => {
   evt.preventDefault();
   const card = {};
+  card.name = inputAddName.value
+  card.link = inputAddLink.value
   renderCard(gallerySection, card, '#gallery-template');
   popupAddForm.reset();
   closePopup(popupAdd);
@@ -103,6 +107,12 @@ const renderCard = (gallerySection, data, cardSelector) => {
   const galleryElement = card.generateCard();
   gallerySection.prepend(galleryElement);
 };
+
+//Добавить массив
+initialCards.forEach((item) => {
+renderCard(gallerySection, item, '#gallery-template')
+
+})
 
 //Валидация 
 const enableValidationForms = () => {
@@ -125,11 +135,6 @@ popupAddForm.addEventListener('submit', addSubmit);
 //Слушатели блока массива 
 popupFsClose.addEventListener('click', () => closePopup(popupFs));
 
-      //Добавить массив
-initialCards.forEach((item) => {
-  renderCard(gallerySection, item, '#gallery-template')
-})
-
 enableValidationForms();
 
-export { openPopup };
+export { openPopup, popupImage, popupDescription };
