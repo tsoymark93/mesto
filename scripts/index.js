@@ -1,4 +1,7 @@
-      // Объявление констант
+import Card from './Card.js'
+import FormValidator from './FormValidator.js';
+import {initialCards, selectors} from './constants.js';
+// Объявление констант
 // Константы связанные с Popup Edit
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupEditOpen = document.querySelector('.profile__edit-btn');
@@ -18,15 +21,11 @@ const inputAddLinkError = popupAdd.querySelector('.gallery-link-error')
 // Константы связанные с Gallery массивом
 const inputAddName = popupAdd.querySelector('#gallery-name');
 const inputAddLink = popupAdd.querySelector('#gallery-link');
-const galleryTemplate = document.querySelector('#gallery-template').content;
 const gallerySection = document.querySelector('.gallery');
 
 // Константы связанные с Popup FullScreen
 const popupFs = document.querySelector('.popup_type_img');
-const popupFsImage = popupFs.querySelector('.popup__image');
-const popupFsDescription = popupFs.querySelector('.popup__description');
 const popupFsClose = popupFs.querySelector('.popup__close-btn');
-
 
       // Объявление функций 
 // Функция открытия Попапов
@@ -92,61 +91,26 @@ const clickPopupAddClose = () => {
 }
 const addSubmit = (evt) => {
   evt.preventDefault();
-  const src = inputAddLink.value;
-  const alt = inputAddName.value;
-  const card = createCards(alt, src);
-  renderCard(gallerySection, card, true);
+  const card = {};
+  renderCard(gallerySection, card, '#gallery-template');
   popupAddForm.reset();
   closePopup(popupAdd);
 }
 
 //Функции связанные с массивом
-const initialFs = (name, link) => {
-  popupFsImage.src = link;
-  popupFsImage.alt = name;
-  popupFsDescription.textContent = name;
-};
-const openPopupFs = (name, link) => {
-  initialFs(name, link)
-  openPopup(popupFs);
-};
-const closePopupFs = () => {
-  closePopup(popupFsClose);
-};
-const imageClick = (evt) => {
-  const {alt, src} = evt.target;
-  openPopupFs(alt, src);
-};
-const likeImg = (evt) => {
-  evt.target.classList.toggle('card__like_active');
-}
-const deleteImg = (event) => {
-  event.target.closest('.gallery__list').remove();
+const renderCard = (gallerySection, data, cardSelector) => {
+  const card = new Card(data, cardSelector);
+  const galleryElement = card.generateCard();
+  gallerySection.prepend(galleryElement);
 };
 
-//Создание карточек
-const createCards = (name, link) => {
-  const card = galleryTemplate.querySelector('.gallery__list').cloneNode(true);
-  const cardImage = card.querySelector('.card__image');
-  const cardLike = card.querySelector('.card__like');
-  const cardDesscription = card.querySelector('.card__description')
-  cardDesscription.querySelector('.card__name').textContent = name;
-  const cardName = card.querySelector('.card__name');
-  cardName.textContent = name;
-  cardImage.src = link;
-  cardImage.alt = name;
-  const deleteBtn = card.querySelector('.card__trash');
-  cardLike.addEventListener('click', likeImg);
-  deleteBtn.addEventListener('click', deleteImg);
-  cardImage.addEventListener('click', imageClick);
-  return card;
-}
-const renderCard = (gallerySection, card, prepend) => {
-  if(prepend) {
-    gallerySection.prepend(card);
-  } else{
-    gallerySection.append(card);
-  }
+//Валидация 
+const enableValidationForms = () => {
+  const forms = Array.from(document.forms);
+  forms.forEach(form => {
+    const formValidator = new FormValidator(selectors, form);
+    formValidator.enableValidation();
+  });
 };
 
       //Слушатели нажатия на клик
@@ -160,10 +124,12 @@ popupAddClose.addEventListener('click', clickPopupAddClose);
 popupAddForm.addEventListener('submit', addSubmit);
 //Слушатели блока массива 
 popupFsClose.addEventListener('click', () => closePopup(popupFs));
+
       //Добавить массив
-initialCards.forEach((icon) => {
-  const name = icon.name;
-  const link = icon.link;
-  const card = createCards (name, link);
-  renderCard(gallerySection, card, false);
-});
+initialCards.forEach((item) => {
+  renderCard(gallerySection, item, '#gallery-template')
+})
+
+enableValidationForms();
+
+export { openPopup };
