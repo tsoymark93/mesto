@@ -16,8 +16,6 @@ const popupAdd = document.querySelector('.popup_type_add');
 const popupAddOpen = document.querySelector('.profile__add-btn');
 const popupAddClose = popupAdd.querySelector('.popup__close-btn');
 const popupAddForm = popupAdd.querySelector('.popup__add-form');
-const inputAddNameError = popupAdd.querySelector('.gallery-name-error')
-const inputAddLinkError = popupAdd.querySelector('.gallery-link-error') 
 const popupImage = document.querySelector('.popup__image');
 const popupDescription = document.querySelector('.popup__description');
 // Константы связанные с Gallery массивом
@@ -28,6 +26,14 @@ const gallerySection = document.querySelector('.gallery');
 // Константы связанные с Popup FullScreen
 const popupFs = document.querySelector('.popup_type_img');
 const popupFsClose = popupFs.querySelector('.popup__close-btn');
+
+// Валидация
+const formValidators = {};
+
+Array.from(document.forms).forEach((form) => {
+  formValidators[form.name] = new FormValidator(selectors, form);
+  formValidators[form.name].enableValidation();
+});
 
       // Объявление функций 
 // Функция открытия Попапов
@@ -60,9 +66,8 @@ const closeByEsc =  (evt) => {
 const clickPopupEditOpen = () => {
   inputEditName.value  =  profileName.textContent;
   inputEditProfession.value  =  profileProfession.textContent;
+  formValidators[popupEditForm.name].cleanForm();
   openPopup(popupEdit)
-  inputEditName.dispatchEvent(new Event('input'));
-  inputEditProfession.dispatchEvent(new Event('input'));
 };
 const clickPopupEditClose = () => {
   closePopup(popupEdit);
@@ -74,54 +79,67 @@ const editSubmit = (evt) => {
   closePopup(popupEdit);
   };
 
-//Функции связанные с попапом добавления
-const resetAddCard = () => {
-  popupAddForm.reset();
-  inputAddLink.dispatchEvent(new Event('input'));
-  inputAddName.dispatchEvent(new Event('input'));
-  inputAddName.classList.remove('popup__input_type_error');
-  inputAddLink.classList.remove('popup__input_type_error');
-  inputAddNameError.textContent = '';
-  inputAddLinkError.textContent = '';
-}
 const clickPopupAddOpen = () => {
-  openPopup(popupAdd);
-  resetAddCard();
-};
-const clickPopupAddClose = () => {
-  closePopup(popupAdd);
-}
-const addSubmit = (evt) => {
-  evt.preventDefault();
-  const card = {};
-  card.name = inputAddName.value
-  card.link = inputAddLink.value
-  renderCard(gallerySection, card, '#gallery-template');
   popupAddForm.reset();
+  openPopup(popupAdd);
+  formValidators[popupAddForm.name].cleanForm();
+};
+
+const clickPopupAddClose = () => {
   closePopup(popupAdd);
 }
 
 //Функции связанные с массивом
-const renderCard = (gallerySection, data, cardSelector) => {
-  const card = new Card(data, cardSelector);
+const createCard = (name, link, cardSelector, listener) => {
+  const card = new Card(name, link, cardSelector, listener);
   const galleryElement = card.generateCard();
-  gallerySection.prepend(galleryElement);
+  return galleryElement
+};
+
+const renderCard = (cards, card, prepend) => {
+  if (prepend) {
+    cards.prepend(card);
+  } else {
+    cards.append(card);
+  }
+}
+
+const initialFs = (name, link) => {
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupDescription.textContent = name;
+}
+
+const openPopupFs = (name, link) => {
+  initialFs(name, link)
+  openPopup(popupFs);
+};
+
+const imageClick = (evt) => {
+  const {alt, src} = evt.target;
+  openPopupFs(alt, src);
 };
 
 //Добавить массив
 initialCards.forEach((item) => {
-renderCard(gallerySection, item, '#gallery-template')
-
+  const cardElement = createCard(
+    item.name,
+    item.link,
+    "#gallery-template",
+    imageClick
+  );
+  renderCard(gallerySection, cardElement, false);
 })
 
-//Валидация 
-const enableValidationForms = () => {
-  const forms = Array.from(document.forms);
-  forms.forEach(form => {
-    const formValidator = new FormValidator(selectors, form);
-    formValidator.enableValidation();
-  });
-};
+const addSubmit = (evt) => {
+  evt.preventDefault();
+  const src = inputAddName.value
+  const alt = inputAddLink.value
+  const cardElement = createCard(alt, src, '#gallery-template', imageClick)
+  renderCard(gallerySection, cardElement, true);
+  popupAddForm.reset();
+  closePopup(popupAdd);
+}
 
       //Слушатели нажатия на клик
 //Слушатели попапа редактирования
@@ -135,6 +153,4 @@ popupAddForm.addEventListener('submit', addSubmit);
 //Слушатели блока массива 
 popupFsClose.addEventListener('click', () => closePopup(popupFs));
 
-enableValidationForms();
-
-export { openPopup, popupImage, popupDescription };
+export { openPopup, popupImage, popupDescription, popupFs };

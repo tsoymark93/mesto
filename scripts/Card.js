@@ -1,10 +1,9 @@
-import { openPopup, popupImage, popupDescription } from "./index.js";
 export default class Card {
-    constructor(data, cardSelector) {
-        this._name = data.name;
-        this._link = data.link;
+    constructor(name, link, cardSelector, imageClick) {
+        this._name = name;
+        this._link = link;
         this._cardSelector = cardSelector;
-        this._popupFs = document.querySelector('.popup_type_img');
+        this._imageClick = imageClick
     }
 
     _getTemplate() {
@@ -17,15 +16,8 @@ export default class Card {
         return galleryElement
     }
     
-    _openPopupFs() {
-        popupImage.src = this._link;
-        popupImage.alt = this._name;
-        popupDescription.textContent = this._name;
-        openPopup(this._popupFs);
-    }
-
     _likeImg(evt) {
-        this._galleryElement.querySelector('.card__like').classList.toggle('card__like_active');
+        this._cardLike.classList.toggle('card__like_active');
     }
 
     _deleteImg(evt) {
@@ -33,23 +25,29 @@ export default class Card {
         this._galleryElement = null;
     }
 
-    _setEventListeners() {
-        this._galleryElement.querySelector('.card__like').addEventListener('click', (evt) => this._likeImg(evt));
-        this._galleryElement.querySelector('.card__trash').addEventListener('click', (evt) => this._deleteImg(evt));
-        this._galleryElement.querySelector('.card__image').addEventListener('click', (evt) => this._openPopupFs(evt));
-    }
-    
     generateCard() {
         this._galleryElement = this._getTemplate()
-        this._setEventListeners()
-
         this._cardImage = this._galleryElement.querySelector('.card__image');
         this._cardName = this._galleryElement.querySelector('.card__name');
-
-        this._cardImage.src = this._link
-        this._cardImage.alt = this._name
-        this._cardName.textContent = this._name
-
-        return this._galleryElement
+        this._cardLike = this._galleryElement.querySelector('.card__like');
+        this._cardTrash = this._galleryElement.querySelector('.card__trash');
+        this._cardImage.src = this._link;
+        this._cardImage.alt = this._name;
+        this._cardName.textContent = this._name;
+        this._setEventListeners()
+        
+        return this._galleryElement;
     }
+
+    _setEventListeners() {
+        this._cardLike.addEventListener('click', (evt) => {
+          this._likeImg(evt);
+        });
+        this._cardTrash.addEventListener('click', (evt) => {
+          this._deleteImg(evt);
+        });
+        this._cardImage.addEventListener('click', (evt) => {
+          this._imageClick(evt);
+        });
+      }
 }
