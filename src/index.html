@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
 
@@ -41,7 +40,7 @@
         <div class="popup__container">
             <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
-            <form name="popup__edit-form" action="form" class="popup__edit-form" novalidate>
+            <form name="popupEditForm" action="form" class="popup__form popup__edit-form" novalidate>
                 <input 
                 type="text"
                 id="profile-name"
@@ -73,7 +72,7 @@
         <div class="popup__container">
             <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
             <h3 class="popup__title">Новое место</h3>
-            <form name="popup__add-form" action="form" class="popup__add-form" novalidate>
+            <form name="popupAddForm" action="form" class="popup__form popup__add-form" novalidate>
                 <input 
                 type="text"
                 id="gallery-name"
@@ -107,7 +106,7 @@
         </figure>
     </div>
 
-    <template id="gallery-template">
+    <template class="gallery-template">
             <ul class="gallery__list">
                 <li class="gallery__items card">
                     <img class="card__image" src="#" alt="#">
@@ -119,6 +118,5 @@
                 </li>
             </ul>
     </template>
-    <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>

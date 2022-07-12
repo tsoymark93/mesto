@@ -60,7 +60,7 @@ export default class FormValidator {
           });
         });
       }
-    
+
     cleanForm = () => {
         this._inputList.forEach((input) => {
           this._hideInputError(input);

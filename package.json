@@ -1,0 +1,37 @@
+{
+  "name": "yandex-praktikum",
+  "version": "0.0.1",
+  "description": "### Описание проектной работы В данной проектной работе был создан типовой одностраничный сайт, с приминением JavaScrip, а именно модальное окно попап.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && webpack",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsoymark93/mesto.git"
+  },
+  "author": "Mark Tsoy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tsoymark93/mesto/issues"
+  },
+  "homepage": "https://github.com/tsoymark93/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
+    "core-js": "^3.23.4",
+    "css-loader": "^6.7.1",
+    "cssnano": "^5.1.12",
+    "html-loader": "^4.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss-loader": "^7.0.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  }
+}
