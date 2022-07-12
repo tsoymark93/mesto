@@ -76,7 +76,7 @@ const popupEditProfile = new PopupWithForm({
       const userData = userInfo.getUserInfo();
       inputEditName.value = userData.name;
       inputEditProfession.value = userData.profession;
-      formValidators['popupEditForm'].cleanForm();
+      formValidators['popupEditForm'].resetValidation();
       },
     handleSubmit: evt => {
       evt.preventDefault();
@@ -94,7 +94,7 @@ popupEditOpen.addEventListener('click', popupEditProfile.open.bind(popupEditProf
 
 const popupAddCard = new PopupWithForm({
     initializeForm: () => {
-      formValidators['popupAddForm'].cleanForm();
+      formValidators['popupAddForm'].resetValidation();
     },
     handleSubmit: evt => {
       evt.preventDefault();
@@ -107,7 +107,6 @@ const popupAddCard = new PopupWithForm({
       
       const cardElement = createCard(cardItem);
       cardList.addItem(cardElement);
-      popupAddForm.reset();
       popupAddCard.close();
     }
   },
