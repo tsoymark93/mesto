@@ -49,23 +49,30 @@ export default class FormValidator {
         }
     }
 
-    enableValidation = () => {
+    _setEventListeners = () => {
         this._toggleButtonState();
-    
-        this._inputList.forEach((input) => {
-          input.addEventListener('input', () => {
-            this._checkValidityValid(input);
-    
-            this._toggleButtonState();
-          });
-        });
-      }
+
+        this._inputList.forEach(input => {
+            input.addEventListener('input', () => {
+                this._checkValidityValid(input);
+
+                this._toggleButtonState();
+            })
+        })
+    }
 
     resetValidation = () => {
         this._inputList.forEach((input) => {
-          this._hideInputError(input);
+            this._hideInputError(input);
         });
-    
+        
         this._toggleButtonState();
-    };
+    }
+
+    enableValidation = () => {
+        this._formElement.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        })
+        this._setEventListeners()
+    }
 }
