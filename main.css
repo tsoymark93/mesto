@@ -43,6 +43,7 @@
 .popup__save-btn_disabled{border:1px solid #000;color:#000;cursor:default;transition:none}.popup__save-btn_disabled,.popup__save-btn_disabled:hover{background-color:#e5e5e5;opacity:.2}
 .popup__input_type_error{border-bottom:1px solid red}
 .popup__input-error_visible{visibility:visible}
+.popup__avatar-form{display:flex;flex-direction:column;min-width:238px;padding-left:22px;padding-right:22px}@media screen and (min-width:640px){.popup__avatar-form{min-width:358px;padding-left:36px;padding-right:36px}}
 
 
 /*# sourceMappingURL=main.css.map*/
